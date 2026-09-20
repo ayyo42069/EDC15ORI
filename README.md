@@ -12,8 +12,16 @@ file name carries the identifying numbers, typically some combination of:
 | software number| `354 613`     | the "SW" / dataset number, spaced or not |
 | model / engine | `1.9 TDI 110` | free text |
 
-`index.json` at the repo root is a generated manifest of every archive with those
-fields parsed out. Tools should fetch that rather than cloning the whole repository.
+`index.tsv` at the repo root is a generated manifest — one `path<TAB>size` line per
+archive. Tools should fetch that (~170 KB) rather than cloning the repository (~440 MB);
+the identifying numbers are parsed from the path on the client side, so the parser can
+improve without regenerating the manifest.
+
+Rebuild it after adding files:
+
+```
+cargo run -p edc-core --example ori_index -- build . index.tsv
+```
 
 ## Layout
 
